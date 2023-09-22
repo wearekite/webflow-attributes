@@ -1,19 +1,33 @@
-const dates = document.querySelectorAll('[wunder-loc="date"]');
+const elements = document.querySelectorAll('[wunder-loc-element="date"]');
 
-const formats = {
-	nl: {
-  	short: "D-M-YYYY",
-    long: "MMMM D, YYYY"
-  }
+const options = {
+  long: { year: 'numeric', month: 'long', day: 'numeric' },
+  short: { year: 'numeric', month: 'short', day: 'numeric' },
 }
-const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
-for (let i = 0; i < dates.length; i++) {
-	let el = dates[i];
+for (let i = 0; i < elements.length; i++) {
+  let language = elements[i].getAttribute('wunder-loc-language');
+  let format = elements[i].getAttribute('wunder-loc-format');
+
+  if (format !== 'long' && format !== 'short') {
+    format = undefined;
+  } else {
+    format = options[format];
+    console.log(format);
+  }
+	let el = elements[i];
   let text = el.innerText;
-  
   let date = new Date(text);
-  text = date.toLocaleDateString(undefined, options);
+
+  if (!language && !format) {
+    text = date.toLocaleDateString(undefined);
+  } else if (language && !format) {
+    text = date.toLocaleDateString(language);
+  } else if (!language && format) {
+    text = date.toLocaleDateString(undefined, format);
+  } else if (language && format) {
+    text = date.toLocaleDateString(language, format);
+  }
   
   el.innerText = text;
 }
