@@ -1,6 +1,6 @@
 {
   "name": "wunderbar-wf-localization",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Localize dates in Webflow to any language",
   "homepage": "https://www.wearewunderbar.nl/webflow",
   "type": "module",
