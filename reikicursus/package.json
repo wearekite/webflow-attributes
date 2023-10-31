@@ -1,0 +1,16 @@
+{
+    "name": "wunderbar-wf-reikicursus",
+    "version": "1.0.7",
+    "description": "Scripts for Reikicursus.nl",
+    "homepage": "https://www.wearewunderbar.nl/",
+    "type": "module",
+    "main": "index.js",
+    "keywords": [
+      "webflow"
+    ],
+    "author": {
+      "name": "Wunderbar",
+      "url": "https://www.wearewunderbar.nl/"
+    }
+  }
+  
