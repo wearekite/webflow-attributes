@@ -1,5 +1,6 @@
 const testEl = document.querySelector('[wunder-element="test"]');
-// const elements = document.querySelectorAll("[wunder-list-item]");
+const cmsListItems = document.querySelectorAll("[wunder-list-item]");
+const cmsListWrapper = document.querySelector('[wunder-element="list-wrapper"]');
 
 const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);
@@ -11,8 +12,26 @@ async function getData() {
         method: "GET",
     })
     const cmsData = await cms.json();
-    testEl.innerHTML = cmsData[0].slug;
-    console.log("CMS: ",cmsData);
+    
+    const cmsDataObj = cmsData.reduce((acc, item) => {
+        acc[item.slug] = item.distance;
+        return acc;
+    }, {});
+
+    // Step 2: Sort cmsListItems based on their distance in cmsDataObj
+    const sortedListItems = Array.from(cmsListItems).sort((a, b) => {
+        const distanceA = cmsDataObj[a.getAttribute('wunder-list-item')];
+        const distanceB = cmsDataObj[b.getAttribute('wunder-list-item')];
+        return distanceA - distanceB;
+    });
+
+    // Step 3: Append sorted divs to the container div
+    sortedListItems.forEach(item => {
+        const slug = item.getAttribute('wunder-list-item');
+        const distance = cmsDataObj[slug];
+        item.insertAdjacentHTML('beforeend', ` - ${distance} km`);
+        cmsListWrapper.appendChild(item);
+    });
 }
 
 if (searchLocation) {

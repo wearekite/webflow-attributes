@@ -6,6 +6,6 @@ form.addEventListener("submit", async (e) => {
 	const data = Object.fromEntries(formData);
 
 	if (data) {
-		window.location = `http://127.0.0.1:5500/reikicursus/test.html?query=${data.adres}`;
+		window.location = `/zoeken?query=${data.adres}`;
 	}
 });
