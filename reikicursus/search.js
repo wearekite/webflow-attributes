@@ -29,7 +29,10 @@ async function getData() {
     sortedListItems.forEach(item => {
         const slug = item.getAttribute('wunder-list-item');
         const distance = cmsDataObj[slug];
-        item.insertAdjacentHTML('beforeend', ` - ${distance} km`);
+        const distanceElement = item.querySelector('[wunder-element="distance"]');
+        if(distanceElement) {
+            distanceElement.textContent = `${distance} km`;
+        }
         cmsListWrapper.appendChild(item);
     });
 }
